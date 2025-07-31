@@ -1,19 +1,16 @@
 bits 64
 
-section .data
-	msg db 'hello world', 10
-	len equ $ - msg
-
 section .text
-	global _start
+	global ft_strlen
 
-_start:
-	mov rax, 1
-	mov rdi, 1
-	mov rsi, msg
-	mov rdx, len
-	syscall
+ft_strlen:
+	xor rax, rax
 
-	mov rax, 60
-	mov rdi, 24
-	syscall
+.loop:
+	cmp byte[rdi + rax], 0
+	je .done
+
+	inc rax
+	call .loop
+.done:
+	ret
