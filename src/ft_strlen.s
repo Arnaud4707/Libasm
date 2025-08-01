@@ -11,6 +11,6 @@ ft_strlen:
 	je .done
 
 	inc rax
-	call .loop
+	jmp .loop
 .done:
 	ret

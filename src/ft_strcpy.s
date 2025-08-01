@@ -7,16 +7,16 @@ ft_strcpy:
 	xor rax, rax
 
 .loop:
+	mov dl, byte [rsi + rax]
 	cmp byte[rsi + rax], 0
 	je .done
-
-	mov dl, byte[rsi + rax]
 	mov byte[rdi + rax], dl
 	
 	inc rax
-	call .loop
+	jmp .loop
 
 .done:
+	mov byte[rdi + rax], dl
 	mov rax, rdi
 	ret
 

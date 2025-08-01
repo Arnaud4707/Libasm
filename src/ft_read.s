@@ -6,9 +6,6 @@ section .text
 
 ft_read:
 	mov rax, 0
-	mov rdi, rdi
-	mov rsi, rsi
-	mov rdx, rdx
 	syscall
 
 	cmp rax, 0

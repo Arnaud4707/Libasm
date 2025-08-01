@@ -8,13 +8,13 @@ LIB= $(addprefix $(LIB_PATH), $(NAME))
 
 SRC_PATH= src/
 
-FILES= ft_strlen.s ft_write.s ft_read.s ft_strcpy.s
+FILES= ft_strlen.s ft_write.s ft_read.s ft_strcpy.s ft_strcmp.s ft_malloc.s ft_free.s ft_strdup.s
 
 SRC= $(addprefix $(SRC_PATH), $(FILES))
 
 OBJ= $(SRC:.s=.o)
 
-COMPIL= nasm -f elf64 -I./
+COMPIL= nasm -f elf64 -I./ 
 
 CC= cc -Wall -Wextra -Werror
 # ld pour un main en asm
@@ -23,7 +23,7 @@ CC= cc -Wall -Wextra -Werror
 	$(COMPIL) $< -o $@
 
 $(PROG): $(LIB) main.o
-	$(CC) main.o $(LIB) -o $(PROG)
+	$(CC) main.o $(LIB) -o $(PROG) -g3
 
 $(LIB): $(OBJ)
 	ar rcs -o $(LIB) $(OBJ)
