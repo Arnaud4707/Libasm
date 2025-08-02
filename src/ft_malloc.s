@@ -1,5 +1,8 @@
 bits 64
 
+section .data
+	msg_malloc db "-----No place for more memory-----", 10
+	len equ $ - msg_malloc
 section .bss
 	global alloc_count
 	global alloc_table
@@ -11,6 +14,9 @@ section .text
 	extern __errno_location
 
 ft_malloc:
+	mov r10, [rel alloc_count]
+	cmp r10, 1024
+	je .overflow_malloc
 	cmp rdi, 0
 	jl .negatif
 	mov rax, 9
@@ -49,5 +55,14 @@ ft_malloc:
 	mov edi, 12
 	call __errno_location
 	mov [rax], edi
+	xor rax, rax
+	ret
+
+.overflow_malloc:
+	mov rdi, 2
+	mov rsi, msg_malloc
+	mov rdx, len
+	mov rax, 1
+	syscall
 	xor rax, rax
 	ret

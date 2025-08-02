@@ -1,5 +1,9 @@
 bits 64
 
+section .data
+	msg_free db "------ERROR no alloced with ft_malloc !------", 10
+	len equ $ - msg_free
+
 section .text
 	global ft_free
 	extern munmap
@@ -8,6 +12,8 @@ section .text
 	extern __errno_location
 
 ft_free:
+	cmp rdi, 0
+	je .done
 	sub rdi, 8
 	xor rcx, rcx
 
@@ -47,4 +53,15 @@ ft_free:
 	ret
 
 .not_found:
+	mov rdi, 2
+	mov rsi, msg_free
+	mov rdx, len
+	mov rax, 1
+	syscall
+
+	mov rdi, 2
+	mov rax, 60
+	ret
+
+.done:
 	ret
