@@ -12,6 +12,7 @@ extern int ft_strcmp(const char *, const char *);
 extern void *ft_malloc(size_t size);
 char *ft_strdup(const char *s);
 extern void ft_free(void *ptr);
+extern void* check_leak(void);
 //extern char *strdup(const char *s);
 
 // extern void ft_strlen();
@@ -59,7 +60,7 @@ int	main(void)
 	printf("\033[1;32mFt_strcpy\033[0m: variable cp: \033[1;32m%s\033[0m is copied in variable dest: \033[1;32m%s\033[0m\n", cp, dest);
 
 	/*
-		Cinquieme test ft_stdup
+		Cinquieme test ft_strcmp
 	*/
 
 	char* s1 = {"troll"}; char* s2 = {"troll"}; 
@@ -85,7 +86,16 @@ int	main(void)
 
 	char* test = ft_strdup("Succes!");
 	printf("\033[1;32mFt_strdup\033[0m: test value is \033[1;32m%s\033[0m after use ft_strdup(\"\033[1;32mSucces!\033[0m\") on test.\n", test);
-	ft_free(test);
+	//ft_free(test);
+
+	check_leak();
+	// if (p == test)
+	// 	return(printf("c'est le meme\n"));
+	// else
+	// 	return(printf("c'est pas le meme\n"));
+
+	//printf(" %p\n", ss);
+	//free(NULL);
 	perror("Errno");
 	return (0);
 }
