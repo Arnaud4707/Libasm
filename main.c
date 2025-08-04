@@ -13,6 +13,8 @@ extern void *ft_malloc(size_t size);
 char *ft_strdup(const char *s);
 extern void ft_free(void *ptr);
 extern void check_leak(void);
+extern size_t ft_putnbr_hexa(unsigned long);
+extern 
 //extern char *strdup(const char *s);
 
 // extern void ft_strlen();
@@ -88,7 +90,7 @@ int	main(void)
 	*/
 
 	printf("\033[0;32mFt_free\033[0m: ft_free is used each time \033[0;32mft_malloc\033[0m is used!\n");
-	ft_free(ss);
+	//ft_free(ss);
 
 	/*
 		huitieme test ft_strdup
@@ -105,5 +107,10 @@ int	main(void)
 
 	perror("Errno");
 	check_leak();
+	
+	/*
+		dixieme test ft_atoi_base
+	*/
+
 	return (0);
 }

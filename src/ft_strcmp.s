@@ -26,7 +26,7 @@ ft_strcmp:
 	jg .positive
 
 .no_s1:
-	movsx rax, cl ; forcer un 8 bit a rentrer dans un 64 bite
+	movsx rax, cl ; forcer un 8 bit a rentrer dans un 64 bite et etant le signe
 	neg rax
 	ret
 

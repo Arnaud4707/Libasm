@@ -1,14 +1,13 @@
 bits 64
 
 section .data
-	msg_no_leak db 10, 0x1B, "[1;33m-----------No memory leak detected good!-----------", 0x1B, "[0m", 10
+	msg_no_leak db 10, 0x1B, "[1;33m-----------No memory leak detected good!-----------", 0x1B, "[0m", 10 ; 0x1B = \033 en hexa
 	len_no_leak equ $ - msg_no_leak
 	msg_leak db  10, 0x1B, "[1;33m", "-----------WARNING MEMORY LEAK DETECTED-----------", 0x1B, "[0m", 10, 10
 	len_leak equ $ - msg_leak
-	msg_address_leak db 0x1B, "[1;33m", "Leak ------------> ", 0x1B, "[4;31m%p", 0x1B, "[0m", 10, 0x0
-	color db 0x1B, "[1;33m" ; 0x1B = \033 en hexa
-	len_color equ $ - color
-	reset db 0x1B, "[0m"
+	msg_address_leak_colored db 0x1B, "[1;33m", "Leak ------------> ", 0x1B, "[4;31m0x"
+	len_msg_leak equ $ - msg_address_leak_colored
+	reset db 0x1B, "[0m", 10
 	len_reset equ $ - reset
 
 section .text
@@ -18,6 +17,7 @@ section .text
 	extern ft_free
 	extern dprintf
 	extern fflush
+	extern ft_putnbr_hexa
 
 check_leak:
 	push    rbp					; l'alignement de la stack pour les fonction variadique
@@ -36,10 +36,25 @@ check_leak:
 
 .nb_leak:
 	cmp rbx, [rel alloc_count]
-	je .leave
+	jae .done
+	mov rax, 1
+	mov rdi, 2
+	mov rsi, msg_address_leak_colored
+	mov rdx, len_msg_leak
+	syscall
+	mov r10, alloc_table
+	mov rdi, [r10 + rbx * 8]
+	add rdi, 8
+	push rbx
+	call ft_putnbr_hexa
+	pop rbx
+	mov rax, 1
+	mov rdi, 2
+	mov rsi, reset
+	mov rdx, len_reset
+	syscall
 	inc rbx
 	jmp .nb_leak
-	ret
 
 .no_leak:
 	mov rax, 1
@@ -51,19 +66,7 @@ check_leak:
     pop     rbp
 	ret
 
-.leave:
-	mov rdi, 2
-	mov rsi, msg_address_leak
-	mov r10, alloc_table
-	dec rbx
-	mov rdx, [r10 + rbx * 8]
-	xor rax, rax
-	call dprintf
-	cmp rbx, 0
-	jg .leave
-	mov rdx, alloc_table
-	mov rax, [rdx + rbx * 8]
-	add rax, 8
+.done:
 	mov     rsp, rbp
     pop     rbp
 	ret

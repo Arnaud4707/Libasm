@@ -8,7 +8,7 @@ LIB= $(addprefix $(LIB_PATH), $(NAME))
 
 SRC_PATH= src/
 
-FILES= ft_strlen.s ft_write.s ft_read.s ft_strcpy.s ft_strcmp.s ft_malloc.s ft_free.s ft_strdup.s check_leak.s
+FILES= ft_strlen.s ft_write.s ft_read.s ft_strcpy.s ft_strcmp.s ft_malloc.s ft_free.s ft_strdup.s check_leak.s ft_putnbr_hexa.s
 
 SRC= $(addprefix $(SRC_PATH), $(FILES))
 
@@ -22,11 +22,11 @@ CC= cc -Wall -Wextra -Werror
 %.o:%.s
 	$(COMPIL) $< -o $@
 
-$(PROG): $(LIB) main.o
-	$(CC) main.o $(LIB) -o $(PROG) -g3
-
 $(LIB): $(OBJ)
 	ar rcs -o $(LIB) $(OBJ)
+	
+$(PROG): $(LIB) main.o
+	$(CC) main.o $(LIB) -o $(PROG) -g3
 
 main.o: main.c
 	$(CC) -o main.o -c main.c
