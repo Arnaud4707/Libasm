@@ -1,7 +1,7 @@
 bits 64
 
 section .data
-	msg_free db "------ERROR no alloced with ft_malloc !------", 10
+	msg_free db "------ERROR invalide pointer !------", 10
 	len equ $ - msg_free
 
 section .text

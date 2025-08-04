@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
+
 extern size_t ft_strlen(char*);
 extern size_t ft_write(int,void*,size_t);
 extern size_t ft_read(int, void *, size_t);
@@ -14,10 +15,7 @@ char *ft_strdup(const char *s);
 extern void ft_free(void *ptr);
 extern void check_leak(void);
 extern size_t ft_putnbr_hexa(unsigned long);
-extern 
-//extern char *strdup(const char *s);
-
-// extern void ft_strlen();
+extern size_t ft_atoi_base(const char *, const char *);
 
 int	main(void)
 {
@@ -90,7 +88,7 @@ int	main(void)
 	*/
 
 	printf("\033[0;32mFt_free\033[0m: ft_free is used each time \033[0;32mft_malloc\033[0m is used!\n");
-	//ft_free(ss);
+	ft_free(ss);
 
 	/*
 		huitieme test ft_strdup
@@ -112,5 +110,7 @@ int	main(void)
 		dixieme test ft_atoi_base
 	*/
 
+	size_t atb = ft_atoi_base("1", "012");
+	printf("%lu", atb);
 	return (0);
 }
