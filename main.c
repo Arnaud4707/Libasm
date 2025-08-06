@@ -5,6 +5,12 @@
 #include <string.h>
 #include <stdlib.h>
 
+typedef struct s_list
+{
+void *data;
+struct s_list *next;
+} t_list;
+
 extern size_t ft_strlen(char*);
 extern size_t ft_write(int,void*,size_t);
 extern size_t ft_read(int, void *, size_t);
@@ -16,6 +22,26 @@ extern void ft_free(void *ptr);
 extern void check_leak(void);
 extern size_t ft_putnbr_hexa(unsigned long);
 extern size_t ft_atoi_base(const char *, const char *);
+extern t_list* ft_create_list(void*);
+extern void ft_list_push_front(t_list **lst, t_list *new);
+extern int	ft_list_size(t_list*);
+extern t_list* ft_list_clear(t_list*);
+extern t_list* ft_list_sort(t_list *lst, int (*cmp)());
+extern void ft_list_remove_if(t_list **begin_list, void *content_ref, int (*cmp)());
+
+int f(void* a, void* b)
+{
+	if (*(int*)(a) > *(int*)(b))
+		return (1);
+	return (0);
+}
+
+int g(void* a, void* b)
+{
+	if (*(int*)(a) != *(int*)(b))
+		return (1);
+	return (0);
+}
 
 int	main(void)
 {
@@ -109,8 +135,92 @@ int	main(void)
 	/*
 		dixieme test ft_atoi_base
 	*/
+	char *nb_atb = {"10000000000"};
+	size_t atb = ft_atoi_base(nb_atb, "01");
+	printf("\033[0;32mFt_atoi_base\033[0m: \033[0;32m%s\033[0m in binary is \033[0;32m%lu\033[0m in hexa.\n", nb_atb, atb);
 
-	size_t atb = ft_atoi_base("1", "012");
-	printf("%lu", atb);
+	/*
+		onzieme test ft_create_list
+	*/
+
+	t_list *tt = ft_create_list("Bonjour ");
+	printf("\033[0;32mFt_create_list\033[0m: \033[0;32m%s\033[0m is the data of the list.\n", (char *)tt->data);
+	t_list *tp = ft_create_list("tout le monde");
+
+	/*
+		douxieme test ft_list_push_front
+	*/
+
+	ft_list_push_front(&tt, tp);
+	t_list *tmp = tt;
+	tt = tt->next;
+	printf("\033[0;32mFt_list_push_front\033[0m: \033[0;32m%s\033[0m is data's of the 1st node \033[0;32m%s\033[0m is data's of the 2nd node.\n", (char *)(tmp->data), (char *)tt->data);
+
+	/*
+		trezieme test ft_list_size
+	*/
+
+	int lt = ft_list_size(tmp);
+	printf("\033[0;32mFt_list_size\033[0m: \033[0;32m%d\033[0m is the size of the list.\n", lt);
+
+	/*
+		quatorzieme test ft_list_clear
+	*/
+
+	printf("\033[0;32mFt_list_clear\033[0m: ft_list_clear is used each time \033[0;32mft_create_list\033[0m is used!\n");
+	ft_list_clear(tmp);
+
+	check_leak();
+
+	/*
+		quinzieme test ft_list_sort
+	*/
+
+	int var = 1;
+	int var2 = 1;
+	// int var3 = 1;
+	t_list* l1 = ft_create_list(&(var));
+	t_list* l2 = ft_create_list(&(var2));
+	// t_list* l3 = ft_create_list(&(var3));
+	ft_list_push_front(&l1, l2);
+	// ft_list_push_front(&l1, l3);
+
+	printf("\033[0;32mFt_list_sort\033[0m: this list is not sort.\n");
+	tmp = l1;
+	i = 1;
+	while (tmp)
+	{
+		printf("\t\t%d node is \033[0;32m%d\033[0m;\n", i, *(int*)(tmp->data));
+		i++;
+		tmp = tmp->next;
+	}
+	int var_test = 1;
+	ft_list_remove_if(&l1, &var_test, &g);
+	tmp = l1;
+	//ft_list_sort(tmp, &f);
+	printf("\033[0;32mFt_list_sort\033[0m: this list is sorted.\n");
+	i = 1;
+	while (tmp)
+	{
+		printf("\t\t%d node is \033[0;32m%d\033[0m;\n",i, *(int*)(tmp->data));
+		i++;
+		tmp = tmp->next;
+	}
+	//int var_test = 1;
+	//ft_list_remove_if(&l1, &var_test, &g);
+	//exit(0);
+	tmp = l1;
+	i = 1;
+	while (tmp)
+	{
+		printf("%d node is \033[0;32m%d\033[0m;\n",i, *(int*)(tmp->data));
+		i++;
+		tmp = tmp->next;
+	}
+
+	ft_list_clear(l1);
+
+	check_leak();
+
 	return (0);
 }

@@ -1,7 +1,7 @@
 bits 64
 
 section .data
-	msg_no_leak db 10, 0x1B, "[1;33m-----------No memory leak detected good!-----------", 0x1B, "[0m", 10 ; 0x1B = \033 en hexa
+	msg_no_leak db 10, 0x1B, "[1;33m-----------No memory leak detected good!-----------", 0x1B, "[0m", 10, 10 ; 0x1B = \033 en hexa
 	len_no_leak equ $ - msg_no_leak
 	msg_leak db  10, 0x1B, "[1;33m", "-----------WARNING MEMORY LEAK DETECTED-----------", 0x1B, "[0m", 10, 10
 	len_leak equ $ - msg_leak

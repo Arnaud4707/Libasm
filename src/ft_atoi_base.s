@@ -62,13 +62,6 @@ ft_atoi_base:
 	dec rax
 	jmp .size
 
-;.loop:
-	; mov rax, r12       ; dividende (64 bits)
-	; cqo              ; étend le signe de rax dans rdx (préparation pour division signée)
-	; mov rbx, r13       ; diviseur
-	; idiv rbx         ; rax ← quotient, rdx ← reste
-				; rdx contient maintenant a % b
-
 .done:
 	mov rax, r15
 	ret
