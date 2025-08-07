@@ -22,6 +22,7 @@ ft_malloc:
 	mov rax, 9
 	mov rsi, rdi
 	add rsi, 8 ; aoute 8 
+	push rsi
 	xor rdi, rdi
 	mov rdx, 3
 	mov r10, 0x22 ; 34
@@ -31,7 +32,7 @@ ft_malloc:
 
 	cmp rax, 0
 	jl .error
-
+	pop rsi
 	mov [rax], rsi
 	
 	mov rcx, [rel alloc_count]

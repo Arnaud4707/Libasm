@@ -11,13 +11,10 @@ section .text
 	extern ft_strlen
 
 ft_create_list:
-	 push rdi
-	call ft_strlen
-	inc rax
-	shl rax, 4
-	mov rdi, rbx
+	push rdi
+	mov rdi, 16
 	call ft_malloc
 	pop rsi
-	mov [rax + t_list.data], rsi  
-    mov qword [rax + t_list.next], 0
+	mov [rax + t_list.data], rsi   ; offset 0
+	mov qword[rax + t_list.next], 0     ; offset 8
 	ret

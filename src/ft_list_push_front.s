@@ -8,11 +8,17 @@ section .bss
 
 section .text
 	global	ft_list_push_front
-	extern t_list
+	extern ft_malloc
 
 ft_list_push_front:
-	mov rax, [rdi]
-	mov [rsi + t_list.next], rax
-	mov [rdi], rsi
-	mov rax, rdi
+	mov r12, rdi
+	mov r13, rsi
+	mov rdi, 16
+	call ft_malloc
+	;mov r8, [r13]
+	;mov [rax + t_list.data], r8
+	mov [rax + t_list.data], r13
+	mov rcx, [r12]
+	mov [rax + t_list.next], rcx
+	mov [r12], rax
 	ret

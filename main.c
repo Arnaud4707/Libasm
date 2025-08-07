@@ -23,7 +23,7 @@ extern void check_leak(void);
 extern size_t ft_putnbr_hexa(unsigned long);
 extern size_t ft_atoi_base(const char *, const char *);
 extern t_list* ft_create_list(void*);
-extern void ft_list_push_front(t_list **lst, t_list *new);
+extern void ft_list_push_front(t_list **lst, void *data);
 extern int	ft_list_size(t_list*);
 extern t_list* ft_list_clear(t_list*);
 extern t_list* ft_list_sort(t_list *lst, int (*cmp)());
@@ -145,13 +145,14 @@ int	main(void)
 
 	t_list *tt = ft_create_list("Bonjour ");
 	printf("\033[0;32mFt_create_list\033[0m: \033[0;32m%s\033[0m is the data of the list.\n", (char *)tt->data);
-	t_list *tp = ft_create_list("tout le monde");
+	char *tp = {"tout le monde"};
 
 	/*
 		douxieme test ft_list_push_front
 	*/
 
-	ft_list_push_front(&tt, tp);
+	ft_list_push_front(&tt, (void*)tp);
+	//exit(0);
 	t_list *tmp = tt;
 	tt = tt->next;
 	printf("\033[0;32mFt_list_push_front\033[0m: \033[0;32m%s\033[0m is data's of the 1st node \033[0;32m%s\033[0m is data's of the 2nd node.\n", (char *)(tmp->data), (char *)tt->data);
@@ -176,14 +177,18 @@ int	main(void)
 		quinzieme test ft_list_sort
 	*/
 
-	int var = 1;
+	int var = 6;
 	int var2 = 1;
-	// int var3 = 1;
-	t_list* l1 = ft_create_list(&(var));
-	t_list* l2 = ft_create_list(&(var2));
-	// t_list* l3 = ft_create_list(&(var3));
-	ft_list_push_front(&l1, l2);
-	// ft_list_push_front(&l1, l3);
+	int var3 = 1;
+	int var4 = 2;
+	int var5 = 2;
+	int var6 = 1;
+	t_list* l1 = ft_create_list(&var);
+	ft_list_push_front(&l1, &var2);
+	ft_list_push_front(&l1, &var3);
+	ft_list_push_front(&l1, &var4);
+	ft_list_push_front(&l1, &var5);
+	ft_list_push_front(&l1, &var6);
 
 	printf("\033[0;32mFt_list_sort\033[0m: this list is not sort.\n");
 	tmp = l1;
@@ -197,6 +202,7 @@ int	main(void)
 	int var_test = 1;
 	ft_list_remove_if(&l1, &var_test, &g);
 	tmp = l1;
+	//exit(0);
 	//ft_list_sort(tmp, &f);
 	printf("\033[0;32mFt_list_sort\033[0m: this list is sorted.\n");
 	i = 1;
@@ -206,8 +212,8 @@ int	main(void)
 		i++;
 		tmp = tmp->next;
 	}
-	//int var_test = 1;
-	//ft_list_remove_if(&l1, &var_test, &g);
+	// var_test = 2;
+	// ft_list_remove_if(&l1, &var_test, &g);
 	//exit(0);
 	tmp = l1;
 	i = 1;

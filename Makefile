@@ -17,7 +17,7 @@ SRC= $(addprefix $(SRC_PATH), $(FILES))
 
 OBJ= $(SRC:.s=.o)
 
-COMPIL= nasm -f elf64 -I./ 
+COMPIL= nasm -g -f elf64 -I./ 
 
 CC= cc -Wall -Wextra -Werror
 # ld pour un main en asm

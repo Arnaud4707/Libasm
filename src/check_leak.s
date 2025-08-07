@@ -22,6 +22,7 @@ section .text
 check_leak:
 	push    rbp					; l'alignement de la stack pour les fonction variadique
 	mov     rbp, rsp
+	sub rsp, 16
 	mov rax, [rel alloc_count]
 	cmp rax, 0
 	je .no_leak

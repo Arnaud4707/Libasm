@@ -1,5 +1,9 @@
 bits 64
 
+section .data
+	msg db "Salut", 10
+	len equ $ - msg
+
 section .text
 	global ft_write
 	extern __errno_location
