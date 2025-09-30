@@ -177,10 +177,10 @@ int	main(void)
 		quinzieme test ft_list_sort
 	*/
 
-	int var = 6;
-	int var2 = 1;
-	int var3 = 1;
-	int var4 = 2;
+	int var = 16;
+	int var2 = 15;
+	int var3 = 14;
+	int var4 = 13;
 	int var5 = 2;
 	int var6 = 1;
 	t_list* l1 = ft_create_list(&var);
@@ -199,11 +199,13 @@ int	main(void)
 		i++;
 		tmp = tmp->next;
 	}
-	int var_test = 1;
+	int var_test = 2;
 	ft_list_remove_if(&l1, &var_test, &g);
 	tmp = l1;
-	//exit(0);
-	//ft_list_sort(tmp, &f);
+	
+	if (!tmp)
+		return (printf("vide\n"));
+	ft_list_sort(tmp, &f);
 	printf("\033[0;32mFt_list_sort\033[0m: this list is sorted.\n");
 	i = 1;
 	while (tmp)
@@ -212,20 +214,8 @@ int	main(void)
 		i++;
 		tmp = tmp->next;
 	}
-	// var_test = 2;
-	// ft_list_remove_if(&l1, &var_test, &g);
-	//exit(0);
-	tmp = l1;
-	i = 1;
-	while (tmp)
-	{
-		printf("%d node is \033[0;32m%d\033[0m;\n",i, *(int*)(tmp->data));
-		i++;
-		tmp = tmp->next;
-	}
 
 	ft_list_clear(l1);
-
 	check_leak();
 
 	return (0);

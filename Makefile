@@ -29,6 +29,7 @@ $(PROG): $(LIB) main.o
 	$(CC) main.o $(LIB) -o $(PROG) -g3
 	
 $(LIB): $(OBJ)
+	@mkdir -p $(LIB_PATH)
 	ar rcs -o $(LIB) $(OBJ)
 	
 
@@ -41,7 +42,7 @@ clean:
 	rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf $(LIB) main.o $(PROG)
+	rm -rf $(LIB_PATH) main.o $(PROG)
 
 re: fclean all
 
